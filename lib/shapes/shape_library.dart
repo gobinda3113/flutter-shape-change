@@ -16,7 +16,7 @@ class ShapeDef {
   });
 }
 
-const ShapeDef kCircle = ShapeDef(id: 'circle', name: 'Circle', category: 'Popular', popular: true, path: 'M50,2 A48,48 0 1,1 49.99,2 Z');
+const ShapeDef kCircle = ShapeDef(id: 'circle', name: 'Circle', category: 'Popular', popular: true, path: 'M50,2 C76.5,2 98,23.5 98,50 C98,76.5 76.5,98 50,98 C23.5,98 2,76.5 2,50 C2,23.5 23.5,2 50,2 Z');
 const ShapeDef kSquare = ShapeDef(id: 'square', name: 'Square', category: 'Popular', popular: true, path: 'M5,5 H95 V95 H5 Z');
 const ShapeDef kRoundedSquare = ShapeDef(id: 'roundedSquare', name: 'Rounded Square', category: 'Popular', popular: true, path: 'M20,5 H80 Q95,5 95,20 V80 Q95,95 80,95 H20 Q5,95 5,80 V20 Q5,5 20,5 Z');
 const ShapeDef kHeart = ShapeDef(id: 'heart', name: 'Heart', category: 'Popular', popular: true, path: heartPath);
@@ -27,8 +27,8 @@ const ShapeDef kSquircle = ShapeDef(id: 'squircle', name: 'Squircle', category: 
 
 const ShapeDef kRectangle = ShapeDef(id: 'rectangle', name: 'Rectangle', category: 'Basic', path: 'M5,20 H95 V80 H5 Z');
 const ShapeDef kVerticalRect = ShapeDef(id: 'vertical-rectangle', name: 'Vertical Rect', category: 'Basic', path: 'M20,5 H80 V95 H20 Z');
-const ShapeDef kEllipse = ShapeDef(id: 'ellipse', name: 'Ellipse', category: 'Basic', path: 'M50,20 A45,30 0 1,1 49.99,20 Z');
-const ShapeDef kVerticalEllipse = ShapeDef(id: 'vertical-ellipse', name: 'Vertical Ellipse', category: 'Basic', path: 'M50,5 A30,45 0 1,1 49.99,5 Z');
+const ShapeDef kEllipse = ShapeDef(id: 'ellipse', name: 'Ellipse', category: 'Basic', path: 'M50,20 C74.84,20 95,33.44 95,50 C95,66.56 74.84,80 50,80 C25.16,80 5,66.56 5,50 C5,33.44 25.16,20 50,20 Z');
+const ShapeDef kVerticalEllipse = ShapeDef(id: 'vertical-ellipse', name: 'Vertical Ellipse', category: 'Basic', path: 'M50,5 C66.56,5 80,25.16 80,50 C80,74.84 66.56,95 50,95 C33.44,95 20,74.84 20,50 C20,25.16 33.44,5 50,5 Z');
 const ShapeDef kPill = ShapeDef(id: 'pill', name: 'Pill', category: 'Basic', path: pillPath);
 const ShapeDef kRoundedRect = ShapeDef(id: 'rounded-rect', name: 'Rounded Rect', category: 'Basic', path: 'M15,20 H85 Q95,20 95,30 V70 Q95,80 85,80 H15 Q5,80 5,70 V30 Q5,20 15,20 Z');
 
