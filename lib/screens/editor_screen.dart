@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:path_provider/path_provider.dart';
 import '../utils/editor_state.dart';
 import '../utils/image_utils.dart';
 import '../widgets/canvas_widget.dart';
@@ -38,15 +36,14 @@ class _EditorScreenState extends State<EditorScreen> {
   ImageItem? get _active => _images.where((i) => i.id == _activeId).firstOrNull;
 
   Future<void> _pickImage() async {
-    final file = await pickImage();
-    if (file == null) return;
+    final bytes = await pickImage();
+    if (bytes == null) return;
 
     try {
-      final img = await loadImageFile(file);
+      final img = await loadImageBytes(bytes);
       final item = ImageItem(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
-        name: file.path.split(Platform.pathSeparator).last,
-        file: file,
+        name: 'Image ${_images.length + 1}',
         image: img,
         shapeId: widget.initialShape ?? 'circle',
       );
@@ -134,12 +131,15 @@ class _EditorScreenState extends State<EditorScreen> {
       final bytes = await captureCanvas(_canvasKey, width: _exportWidth, height: _exportHeight);
       if (bytes == null) { ToastService.instance.danger('Export failed'); return; }
 
-      final dir = await getApplicationDocumentsDirectory();
       final ext = _exportFormat == 'jpeg' ? 'jpg' : _exportFormat;
-      final file = File('${dir.path}/${_active!.name.replaceAll(RegExp(r'\.[^.]+$'), '')}-mask.$ext');
-      await file.writeAsBytes(bytes);
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final xfile = XFile.fromData(
+        bytes,
+        name: '${_active!.name}-mask-$timestamp.$ext',
+        mimeType: _exportFormat == 'png' ? 'image/png' : 'image/jpeg',
+      );
 
-      await Share.shareXFiles([XFile(file.path)], text: 'Created with Image Shape Masking Studio');
+      await Share.shareXFiles([xfile], text: 'Created with Image Shape Masking Studio');
       ToastService.instance.success('Exported successfully');
     } catch (e) {
       ToastService.instance.danger('Export failed');

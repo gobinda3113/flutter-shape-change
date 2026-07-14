@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class BgConfig {
@@ -132,7 +131,6 @@ class AdjustConfig {
 class ImageItem {
   final String id;
   final String name;
-  File? file;
   ui.Image? image;
   String shapeId;
   AdjustConfig adjust;
@@ -142,7 +140,6 @@ class ImageItem {
   ImageItem({
     required this.id,
     required this.name,
-    this.file,
     this.image,
     this.shapeId = 'circle',
     AdjustConfig? adjust,

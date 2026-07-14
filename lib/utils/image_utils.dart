@@ -1,26 +1,17 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
-Future<File?> pickImage() async {
+Future<Uint8List?> pickImage() async {
   final picker = ImagePicker();
   final picked = await picker.pickImage(source: ImageSource.gallery, maxWidth: 4000, maxHeight: 4000);
   if (picked == null) return null;
-  return File(picked.path);
+  return picked.readAsBytes();
 }
 
-Future<ui.Image> loadImageFile(File file) async {
-  final bytes = await file.readAsBytes();
-  final codec = await ui.instantiateImageCodec(bytes);
-  final frame = await codec.getNextFrame();
-  return frame.image;
-}
-
-Future<ui.Image> loadImageFromBytes(Uint8List bytes) async {
+Future<ui.Image> loadImageBytes(Uint8List bytes) async {
   final codec = await ui.instantiateImageCodec(bytes);
   final frame = await codec.getNextFrame();
   return frame.image;
@@ -36,13 +27,6 @@ Future<Uint8List?> captureCanvas(GlobalKey key, {int width = 1000, int height = 
   } catch (_) {
     return null;
   }
-}
-
-Future<File> saveImageToFile(Uint8List bytes, String name) async {
-  final dir = await getApplicationDocumentsDirectory();
-  final file = File('${dir.path}/$name');
-  await file.writeAsBytes(bytes);
-  return file;
 }
 
 String formatBytes(int bytes) {
